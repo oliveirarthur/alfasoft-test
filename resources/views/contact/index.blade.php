@@ -6,20 +6,25 @@
         <th>Email</th>
         <th>Actions</th>
     </tr>
+
+    @forelse ($contacts as $contact)
+        <tr>
+            <td>{{ $contact->id }}</td>
+            <td>{{ $contact->name }}</td>
+            <td>{{ $contact->contact }}</td>
+            <td>{{ $contact->email }}</td>
+            <td>
+                <button class="btn btn-primary">Edit</button>
+                <button class="btn btn-danger">Remove</button>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="5">No contacts found</td>
+        </tr>
+    @endforelse
 </table>
-@forelse ($contacts as $contact)
-    <tr>
-        <td>{{ $contact->id }}</td>
-        <td>{{ $contact->name }}</td>
-        <td>{{ $contact->contact }}</td>
-        <td>{{ $contact->email }}</td>
-        <td>
-            <button class="btn btn-primary">Edit</button>
-            <button class="btn btn-danger">Remove</button>
-        </td>
-    </tr>
-@empty
-    <tr>
-        <td colspan="5">No contacts found</td>
-    </tr>
-@endforelse
+
+<div>
+    <a href="{{ route('contacts.create') }}" class="btn btn-success">Add</a>
+</div>
