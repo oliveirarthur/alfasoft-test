@@ -88,7 +88,7 @@ class ContactController extends Controller
             );
             $contact->fill($newData);
             $contact->save();
-            
+
             return redirect('/contacts');
         } catch (\Throwable $th) {
             return back()->withErrors($th->getMessage())->withInput();
@@ -103,6 +103,12 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        try {
+            $contact->delete();
+
+            return redirect('/contacts');
+        } catch (\Throwable $th) {
+            return back()->withErrors($th->getMessage());
+        }
     }
 }

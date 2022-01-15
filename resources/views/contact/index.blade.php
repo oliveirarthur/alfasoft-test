@@ -15,7 +15,11 @@
             <td>{{ $contact->email }}</td>
             <td>
                 <a class="btn btn-primary" href="{{route('contacts.edit', [$contact->id])}}">Edit</a>
-                <button class="btn btn-danger">Remove</button>
+                <form action="{{ route('contacts.destroy', [$contact->id]) }}" method="POST" onsubmit="return remove(event, $contact->id, $contact->name)">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-danger" >Remove</button>
+                </form>
             </td>
         </tr>
     @empty
@@ -28,3 +32,13 @@
 <div>
     <a href="{{ route('contacts.create') }}" class="btn btn-success">Add</a>
 </div>
+
+
+<script>
+    function remove(event, id, name) {
+        event.preventDefault()
+        if (!confirm(`Tem certeza que deseja remover o contato ${name}?`)) {
+            return false
+        }
+    }
+</script>
