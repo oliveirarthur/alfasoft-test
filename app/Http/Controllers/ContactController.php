@@ -68,7 +68,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        return view('contact.form', compact('contact'));
     }
 
     /**
@@ -80,7 +80,19 @@ class ContactController extends Controller
      */
     public function update(UpdateContactRequest $request, Contact $contact)
     {
-        //
+        try{
+            $newData = $request->only(
+                'name',
+                'contact',
+                'email'
+            );
+            $contact->fill($newData);
+            $contact->save();
+            
+            return redirect('/contacts');
+        } catch (\Throwable $th) {
+            return back()->withErrors($th->getMessage())->withInput();
+        }
     }
 
     /**

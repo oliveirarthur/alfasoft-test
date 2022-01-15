@@ -14,7 +14,7 @@
             <td>{{ $contact->contact }}</td>
             <td>{{ $contact->email }}</td>
             <td>
-                <button class="btn btn-primary">Edit</button>
+                <a class="btn btn-primary" href="{{route('contacts.edit', [$contact->id])}}">Edit</a>
                 <button class="btn btn-danger">Remove</button>
             </td>
         </tr>
