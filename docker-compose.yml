@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  mariadb:
+      image: mariadb:10.6.5-focal
+      env_file: .env
+
+  web:
+    build: .
+    command: php artisan serve --host 0.0.0.0
+    depends_on:
+      - mariadb
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    working_dir: /app
+
